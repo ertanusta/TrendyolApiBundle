@@ -14,7 +14,7 @@ abstract class AbstractService
 	/**
 	 * @var ClientInterface
 	 */
-	protected $client;
+	private $client;
 
 	public function __construct(ClientInterface $client = null)
 	{
@@ -26,9 +26,6 @@ abstract class AbstractService
 	 */
 	protected function getClient(): ClientInterface
 	{
-		if ($this->client === null) {
-			$this->client = new TrendyolClient();
-		}
 		return $this->client;
 	}
 
