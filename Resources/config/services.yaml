@@ -1,0 +1,5 @@
+services:
+  Trendyol\ApiBundle\Client\TrendyolClient:
+    public: true
+    arguments:
+
