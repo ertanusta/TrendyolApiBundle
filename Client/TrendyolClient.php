@@ -39,16 +39,27 @@ class TrendyolClient implements ClientInterface
      */
     private $url;
 
-    public function __construct($supplierId, $appKey, $appSecret, $integrator,$url)
+    /**
+     * @var string
+     */
+    private $env;
+
+    /**
+     * @param $supplierId
+     * @param $appKey
+     * @param $appSecret
+     * @param $integrator
+     * @param $url
+     * @param $env
+     */
+    public function __construct($supplierId, $appKey, $appSecret, $integrator, $url, $env)
     {
-        $this->url = "https://stageapi.trendyol.com/stagesapigw/";
-        if ($_SERVER['APP_DEBUG'] === 0) {
-            $this->url = "https://api.trendyol.com/sapigw/";
-        }
         $this->supplierId = $supplierId;
         $this->appKey = $appKey;
         $this->appSecret = $appSecret;
         $this->integrator = $integrator;
+        $this->env = $env;
+        $this->url = $url;
     }
 
     /**
@@ -68,12 +79,11 @@ class TrendyolClient implements ClientInterface
         if (!empty($bodyParam)) {
             $options['json'] = $bodyParam;
         }
-        $requestUrl = $this->getUrl() . $endPoint;
-        $requestUrl = str_replace('{sellerid}', $this->getSupplierId(), $requestUrl);
+
+        $requestUrl = $this->prepareRequestUrl($endPoint);
         if (!empty($queryParam)) {
             $requestUrl .= '?' . http_build_query($queryParam);
         }
-
         return HttpClient::create()->request(
             $methodType,
             $requestUrl,
@@ -99,6 +109,20 @@ class TrendyolClient implements ClientInterface
                 $this->getAppSecret(),
             ],
         ];
+    }
+
+    /**
+     * @param $endPoint
+     * @return array|string|string[]
+     */
+    private function prepareRequestUrl($endPoint)
+    {
+        $requestUrl = $this->url . $endPoint;
+        $requestUrl = str_replace('{sellerid}', $this->getSupplierId(), $requestUrl);
+        if ($this->env !== "prod") {
+            $requestUrl = str_replace('sapigw', 'stagesapigw', $this->url);
+        }
+        return $requestUrl;
     }
 
     /**

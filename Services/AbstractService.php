@@ -23,7 +23,7 @@ abstract class AbstractService
 	/**
 	 * @return ClientInterface
 	 */
-	protected function getClient(): ClientInterface
+	protected function getClient(): ?ClientInterface
 	{
 		return $this->client;
 	}

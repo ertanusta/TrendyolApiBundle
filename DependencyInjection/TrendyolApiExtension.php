@@ -29,5 +29,11 @@ class TrendyolApiExtension extends Extension
         $definition->addArgument($config['app_key'] ?? '');
         $definition->addArgument($config['app_secret'] ?? '');
         $definition->addArgument($config['integrator'] ?? '');
+        $url = "https://stageapi.trendyol.com";
+        if ($container->getParameter('kernel.environment') === "prod") {
+            $url = "https://api.trendyol.com";
+        }
+        $definition->addArgument($url);
+        $definition->addArgument($container->getParameter('kernel.environment'));
     }
 }

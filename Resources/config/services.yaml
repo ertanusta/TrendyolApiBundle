@@ -1,5 +1,12 @@
 services:
   Trendyol\ApiBundle\Client\TrendyolClient:
     public: true
-    arguments:
+
+    Trendyol\ApiBundle\Client\ClientInterface: '@Trendyol\ApiBundle\Client\TrendyolClient'
+
+  Trendyol\ApiBundle\Services\:
+    resource: '../../Services/*'
+    autowire: true
+    autoconfigure: true
+    public: true
 
