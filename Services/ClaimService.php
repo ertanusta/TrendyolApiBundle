@@ -13,12 +13,12 @@ use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
  */
 class ClaimService extends AbstractService
 {
-	public const GET_SHIPMENT_PACKAGE_ENDPOINT = "suppliers/{supplierid}/claims";
-	public const CREATE_CLAIM_ENDPOINT = "suppliers/{supplierId}/claims/create";
-	public const APPROVE_CLAIM_LINE_ITEMS_ENDPOINT = "claims/{claimId}/items/approve";
-	public const CREATE_CLAIM_ISSUE_ENDPOINT = "claims/{claimId}/issue";
-	public const GET_CLAIM_ISSUE_REASONS_ENDPOINT = "claim-issue-reasons";
-	public const GET_CLAIM_AUDITS_ENDPOINT = "claims/items/{claimItemsId}/audit";
+	public const GET_SHIPMENT_PACKAGE_ENDPOINT = "/sapigw/suppliers/{sellerid}/claims";
+	public const CREATE_CLAIM_ENDPOINT = "/sapigw/suppliers/{supplierId}/claims/create";
+	public const APPROVE_CLAIM_LINE_ITEMS_ENDPOINT = "/sapigw/claims/{claimId}/items/approve";
+	public const CREATE_CLAIM_ISSUE_ENDPOINT = "/sapigw/claims/{claimId}/issue";
+	public const GET_CLAIM_ISSUE_REASONS_ENDPOINT = "/sapigw/claim-issue-reasons";
+	public const GET_CLAIM_AUDITS_ENDPOINT = "/integration/oms/core/sellers/{sellerid}/claims/items/{claimItemsId}/audit";
 
 	/**
 	 * @param int $claimItemsId
@@ -26,19 +26,11 @@ class ClaimService extends AbstractService
 	 * @throws TransportExceptionInterface
 	 * @throws HeaderNotFoundException
 	 */
-	public function getClaimAudits(int $claimItemsId = 0)
-	{
-		$oldUrl = $this->getClient()->getUrl();
-		$supplierId = $this->getClient()->getSupplierId();
-		$this->getClient()->setUrl("https://stageapi.trendyol.com/integration/oms/core/sellers/$supplierId/");
-		if ($_SERVER['APP_DEBUG'] === 0) {
-			$this->getClient()->setUrl("https://api.trendyol.com/integration/oms/core/sellers/$supplierId/");
-		}
-		$response = $this->getClient()->request(
+	public function getClaimAudits(int $claimItemsId = 0): ResponseInterface
+    {
+		return $this->getClient()->request(
 			str_replace('{claimItemsId}', $claimItemsId, self::GET_CLAIM_AUDITS_ENDPOINT)
 		);
-		$this->getClient()->setUrl($oldUrl);
-		return $response;
 	}
 
 	/**
@@ -46,8 +38,8 @@ class ClaimService extends AbstractService
 	 * @throws TransportExceptionInterface
 	 * @throws HeaderNotFoundException
 	 */
-	public function getClaimsIssueReasons()
-	{
+	public function getClaimsIssueReasons(): ResponseInterface
+    {
 		return $this->getClient()->request(self::GET_CLAIM_ISSUE_REASONS_ENDPOINT);
 	}
 
@@ -58,8 +50,8 @@ class ClaimService extends AbstractService
 	 * @throws TransportExceptionInterface
 	 * @throws HeaderNotFoundException
 	 */
-	public function createClaimIssue(int $claimId = 0, array $queryParam = [])
-	{
+	public function createClaimIssue(int $claimId = 0, array $queryParam = []): ResponseInterface
+    {
 		return $this->getClient()->request(
 			str_replace('{claimId}', $claimId, self::CREATE_CLAIM_ISSUE_ENDPOINT),
 			Request::METHOD_POST,
@@ -75,8 +67,8 @@ class ClaimService extends AbstractService
 	 * @throws TransportExceptionInterface
 	 * @throws HeaderNotFoundException
 	 */
-	public function approveClaimLineItems(int $claimId = 0, array $bodyParam = [])
-	{
+	public function approveClaimLineItems(int $claimId = 0, array $bodyParam = []): ResponseInterface
+    {
 		return $this->getClient()->request(
 			str_replace('{claimId}', $claimId, self::APPROVE_CLAIM_LINE_ITEMS_ENDPOINT),
 			Request::METHOD_PUT,
@@ -90,8 +82,8 @@ class ClaimService extends AbstractService
 	 * @throws TransportExceptionInterface
 	 * @throws HeaderNotFoundException
 	 */
-	public function createClaim(array $bodyParam = [])
-	{
+	public function createClaim(array $bodyParam = []): ResponseInterface
+    {
 		return $this->getClient()->request(
 			self::CREATE_CLAIM_ENDPOINT,
 			Request::METHOD_POST,
@@ -105,8 +97,8 @@ class ClaimService extends AbstractService
 	 * @throws TransportExceptionInterface
 	 * @throws HeaderNotFoundException
 	 */
-	public function getShipmentPackage(array $queryParam = [])
-	{
+	public function getShipmentPackage(array $queryParam = []): ResponseInterface
+    {
 		return $this->getClient()->request(
 			self::GET_SHIPMENT_PACKAGE_ENDPOINT,
 			Request::METHOD_GET,

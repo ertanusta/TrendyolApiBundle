@@ -13,7 +13,7 @@ use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 class CargoService extends AbstractService
 {
 	public const SHIPMENT_PROVIDERS_ENDPOINT = 'shipment-providers';
-	public const SUPPLIERS_ADDRESSES_ENDPOINT = 'suppliers/{supplierid}/addresses';
+	public const SUPPLIERS_ADDRESSES_ENDPOINT = 'suppliers/{sellerid}/addresses';
 
 	/**
 	 * @return ResponseInterface

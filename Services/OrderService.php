@@ -13,16 +13,16 @@ use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
  */
 class OrderService extends AbstractService
 {
-	public const SHIPMENT_PACKAGES_ENDPOINT = "suppliers/{supplierid}/orders";
-	public const UPDATE_TRACKING_ID_NUMBER_ENDPOINT = "suppliers/{supplierId}/{shipmentPackageId}/update-tracking-number";
-	public const UPDATE_PACKAGE_ENDPOINT = "suppliers/{supplierId}/shipment-packages/{Id}";
-	public const UPDATE_PACKAGE_UN_SUPPLIED_ENDPOINT = "shipment-packages/{shipmentPackageId}/items/unsupplied";
-	public const SEND_INVOICE_LINK_ENDPOINT = "suppliers/{supplierId}/supplier-invoice-links";
-	public const SPLIT_MULTI_PACKAGE_BY_QUANTITY_ENDPOINT = "suppliers/{supplierId}/shipment-packages/{shipmentPackageId}/split-packages";
-	public const SPLIT_SHIPMENT_PACKAGE_ENDPOINT = "suppliers/{supplierId}/shipment-packages/{shipmentPackageId}/split";
-	public const MULTI_SPLIT_SHIPMENT_PACKAGE_ENDPOINT = "suppliers/{supplierId}/shipment-packages/{shipmentPackageId}/multi-split";
-	public const SPLIT_SHIPMENT_PACKAGE_BY_QUANTITY_ENDPOINT = "suppliers/{supplierId}/shipment-packages/{shipmentPackageId}/quantity-split";
-	public const UPDATE_BOX_INFO_ENDPOINT = "suppliers/{supplierId}/shipment-packages/{shipmentPackageId}/box-info";
+	public const SHIPMENT_PACKAGES_ENDPOINT = "/sapigw/suppliers/{sellerid}/orders";
+	public const UPDATE_TRACKING_ID_NUMBER_ENDPOINT = "/sapigw/suppliers/{supplierId}/{shipmentPackageId}/update-tracking-number";
+	public const UPDATE_PACKAGE_ENDPOINT = "/sapigw/suppliers/{supplierId}/shipment-packages/{Id}";
+	public const UPDATE_PACKAGE_UN_SUPPLIED_ENDPOINT = "/integration/oms/core/sellers/{selledi}/shipment-packages/{shipmentPackageId}/items/unsupplied";
+	public const SEND_INVOICE_LINK_ENDPOINT = "/sapigw/suppliers/{supplierId}/supplier-invoice-links";
+	public const SPLIT_MULTI_PACKAGE_BY_QUANTITY_ENDPOINT = "/sapigw/suppliers/{supplierId}/shipment-packages/{shipmentPackageId}/split-packages";
+	public const SPLIT_SHIPMENT_PACKAGE_ENDPOINT = "/sapigw/suppliers/{supplierId}/shipment-packages/{shipmentPackageId}/split";
+	public const MULTI_SPLIT_SHIPMENT_PACKAGE_ENDPOINT = "/sapigw/suppliers/{supplierId}/shipment-packages/{shipmentPackageId}/multi-split";
+	public const SPLIT_SHIPMENT_PACKAGE_BY_QUANTITY_ENDPOINT = "/sapigw/suppliers/{supplierId}/shipment-packages/{shipmentPackageId}/quantity-split";
+	public const UPDATE_BOX_INFO_ENDPOINT = "/sapigw/suppliers/{supplierId}/shipment-packages/{shipmentPackageId}/box-info";
 
 	/**
 	 * @param array $queryParam
@@ -79,19 +79,11 @@ class OrderService extends AbstractService
 	 */
 	public function updatePackageUnSupplied(int $shipmentPackageId, array $bodyParam = []): ResponseInterface
 	{
-		$oldUrl = $this->getClient()->getUrl();
-		$supplierId = $this->getClient()->getSupplierId();
-		$this->getClient()->setUrl("https://stageapi.trendyol.com/integration/oms/core/sellers/$supplierId/");
-		if ($_SERVER['APP_DEBUG'] === 0) {
-			$this->getClient()->setUrl("https://api.trendyol.com/integration/oms/core/sellers/$supplierId/");
-		}
-		$response = $this->getClient()->request(
+		return $this->getClient()->request(
 			str_replace('{shipmentPackageId}', $shipmentPackageId, self::UPDATE_PACKAGE_UN_SUPPLIED_ENDPOINT),
 			Request::METHOD_PUT,
 			$bodyParam
 		);
-		$this->getClient()->setUrl($oldUrl);
-		return $response;
 	}
 
 	/**

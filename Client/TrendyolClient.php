@@ -39,7 +39,7 @@ class TrendyolClient implements ClientInterface
      */
     private $url;
 
-    public function __construct($supplierId, $appKey, $appSecret, $integrator)
+    public function __construct($supplierId, $appKey, $appSecret, $integrator,$url)
     {
         $this->url = "https://stageapi.trendyol.com/stagesapigw/";
         if ($_SERVER['APP_DEBUG'] === 0) {
@@ -69,7 +69,7 @@ class TrendyolClient implements ClientInterface
             $options['json'] = $bodyParam;
         }
         $requestUrl = $this->getUrl() . $endPoint;
-        $requestUrl = str_replace('{supplierid}', $this->getSupplierId(), $requestUrl);
+        $requestUrl = str_replace('{sellerid}', $this->getSupplierId(), $requestUrl);
         if (!empty($queryParam)) {
             $requestUrl .= '?' . http_build_query($queryParam);
         }

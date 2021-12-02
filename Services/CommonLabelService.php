@@ -14,8 +14,8 @@ use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 class CommonLabelService extends AbstractService
 {
 
-	public const CREATE_COMMON_LABEL_ENDPOINT = "suppliers/{supplierId}/common-label/{cargoTrackingNumber}";
-	public const GET_COMMON_LABEL_ENDPOINT = "suppliers/{supplierId}/common-label/v2/{cargoTrackingNumber}";
+	public const CREATE_COMMON_LABEL_ENDPOINT = "/sapigw/suppliers/{supplierId}/common-label/{cargoTrackingNumber}";
+	public const GET_COMMON_LABEL_ENDPOINT = "/sapigw/suppliers/{supplierId}/common-label/v2/{cargoTrackingNumber}";
 
 	/**
 	 * @param string $cargoTrackingNumber
@@ -25,8 +25,8 @@ class CommonLabelService extends AbstractService
 	 * @throws TransportExceptionInterface
 	 * @throws HeaderNotFoundException
 	 */
-	public function createCommonLabel(string $cargoTrackingNumber = "", array $bodyParam = [], array $queryParam = [ 'format' => 'ZPL' ])
-	{
+	public function createCommonLabel(string $cargoTrackingNumber = "", array $bodyParam = [], array $queryParam = [ 'format' => 'ZPL' ]): ResponseInterface
+    {
 		return $this->getClient()->request(
 			str_replace('{cargoTrackingNumber}', $cargoTrackingNumber, self::CREATE_COMMON_LABEL_ENDPOINT),
 			Request::METHOD_POST,
@@ -41,8 +41,8 @@ class CommonLabelService extends AbstractService
 	 * @throws TransportExceptionInterface
 	 * @throws HeaderNotFoundException
 	 */
-	public function getCommonLabel(string $cargoTrackingNumber = "")
-	{
+	public function getCommonLabel(string $cargoTrackingNumber = ""): ResponseInterface
+    {
 		return $this->getClient()->request(
 			str_replace('{cargoTrackingNumber}', $cargoTrackingNumber, self::GET_COMMON_LABEL_ENDPOINT)
 		);

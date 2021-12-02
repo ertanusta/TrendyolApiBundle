@@ -14,10 +14,10 @@ use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 class CategoryService extends AbstractService
 {
 
-	public const CATEGORY_LIST_ENDPOINT = "product-categories";
-	public const CATEGORY_ATTRIBUTES_ENDPOINT = "product-categories/{categoryid}/attributes";
-	public const BRAND_LIST_ENDPOINT = "brands";
-	public const BRAND_BY_NAME_ENDPOINT = "brands/by-name";
+	public const CATEGORY_LIST_ENDPOINT = "/sapigw/product-categories";
+	public const CATEGORY_ATTRIBUTES_ENDPOINT = "/sapigw/product-categories/{categoryid}/attributes";
+	public const BRAND_LIST_ENDPOINT = "/sapigw/brands";
+	public const BRAND_BY_NAME_ENDPOINT = "/sapigw/brands/by-name";
 
 	/**
 	 * @return ResponseInterface

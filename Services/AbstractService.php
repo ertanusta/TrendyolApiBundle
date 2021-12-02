@@ -2,7 +2,6 @@
 
 namespace Trendyol\ApiBundle\Services;
 
-use Trendyol\ApiBundle\Client\TrendyolClient;
 use Trendyol\ApiBundle\Client\ClientInterface;
 
 /**
@@ -28,13 +27,4 @@ abstract class AbstractService
 	{
 		return $this->client;
 	}
-
-	/**
-	 * @param ClientInterface $client
-	 */
-	public function setClient(ClientInterface $client): void
-	{
-		$this->client = $client;
-	}
-
 }
