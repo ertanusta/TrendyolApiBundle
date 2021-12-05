@@ -2,7 +2,7 @@ services:
   Trendyol\ApiBundle\Client\TrendyolClient:
     public: true
 
-    Trendyol\ApiBundle\Client\ClientInterface: '@Trendyol\ApiBundle\Client\TrendyolClient'
+  Trendyol\ApiBundle\Client\ClientInterface: '@Trendyol\ApiBundle\Client\TrendyolClient'
 
   Trendyol\ApiBundle\Services\:
     resource: '../../Services/*'
