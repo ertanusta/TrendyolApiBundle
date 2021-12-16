@@ -14,61 +14,61 @@ use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 class CategoryService extends AbstractService
 {
 
-	public const CATEGORY_LIST_ENDPOINT = "/sapigw/product-categories";
-	public const CATEGORY_ATTRIBUTES_ENDPOINT = "/sapigw/product-categories/{categoryid}/attributes";
-	public const BRAND_LIST_ENDPOINT = "/sapigw/brands";
-	public const BRAND_BY_NAME_ENDPOINT = "/sapigw/brands/by-name";
+    public const CATEGORY_LIST = "category_list";
+    public const CATEGORY_ATTRIBUTES = "category_attributes";
+    public const BRAND_LIST = "brand_list";
+    public const BRAND_BY_NAME = "brand_by_name";
 
-	/**
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function getCategoryTree(): ResponseInterface
-	{
-		return $this->getClient()->request(
-			self::CATEGORY_LIST_ENDPOINT
-		);
-	}
+    /**
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function getCategoryTree(): ResponseInterface
+    {
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::CATEGORY_LIST)
+        );
+    }
 
-	/**
-	 * @param string $categoryId
-	 * @return ResponseInterface
-	 * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
-	 * @throws \Trendyol\ApiBundle\Exceptions\HeaderNotFoundException
-	 */
-	public function getCategoryAttributes(string $categoryId = ""): ResponseInterface
-	{
-		return $this->getClient()->request(
-			str_replace('{categoryid}', $categoryId, self::CATEGORY_ATTRIBUTES_ENDPOINT)
-		);
-	}
+    /**
+     * @param string $categoryId
+     * @return ResponseInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @throws \Trendyol\ApiBundle\Exceptions\HeaderNotFoundException
+     */
+    public function getCategoryAttributes(string $categoryId = ""): ResponseInterface
+    {
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::CATEGORY_ATTRIBUTES, ['[categoryid]' => $categoryId])
+    );
+    }
 
-	/**
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function getBrands(): ResponseInterface
-	{
-		return $this->getClient()->request(
-			self::BRAND_LIST_ENDPOINT
-		);
-	}
+    /**
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function getBrands(): ResponseInterface
+    {
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::BRAND_LIST)
+        );
+    }
 
-	/**
-	 * @param string $brandName
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function getBrandsName(string $brandName = ""): ResponseInterface
-	{
-		return $this->getClient()->request(
-			self::BRAND_BY_NAME_ENDPOINT,
-			Request::METHOD_GET,
-			[],
-			[ 'name' => $brandName ]
-		);
-	}
+    /**
+     * @param string $brandName
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function getBrandsName(string $brandName = ""): ResponseInterface
+    {
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::BRAND_BY_NAME),
+            Request::METHOD_GET,
+            [],
+            ['name' => $brandName]
+        );
+    }
 }

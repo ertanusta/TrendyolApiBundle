@@ -17,7 +17,7 @@ class TrendyolClient implements ClientInterface
     /**
      * @var string
      */
-    private $supplierId;
+    private $sellerId;
 
     /**
      * @var string
@@ -34,15 +34,6 @@ class TrendyolClient implements ClientInterface
      */
     private $integrator = "SelfIntegration";
 
-    /**
-     * @var string
-     */
-    private $url;
-
-    /**
-     * @var string
-     */
-    private $env;
 
     /**
      * @param $supplierId
@@ -52,18 +43,16 @@ class TrendyolClient implements ClientInterface
      * @param $url
      * @param $env
      */
-    public function __construct($supplierId, $appKey, $appSecret, $integrator, $url, $env)
+    public function __construct($sellerId, $appKey, $appSecret, $integrator)
     {
-        $this->supplierId = $supplierId;
+        $this->sellerId = $sellerId;
         $this->appKey = $appKey;
         $this->appSecret = $appSecret;
         $this->integrator = $integrator;
-        $this->env = $env;
-        $this->url = $url;
     }
 
     /**
-     * @param $endPoint
+     * @param $requestUrl
      * @param string $methodType
      * @param array $bodyParam
      * @param array $queryParam
@@ -71,7 +60,7 @@ class TrendyolClient implements ClientInterface
      * @throws TransportExceptionInterface
      * @throws HeaderNotFoundException
      */
-    public function request($endPoint, $methodType = Request::METHOD_GET, $bodyParam = [], $queryParam = []): ResponseInterface
+    public function request($requestUrl, $methodType = Request::METHOD_GET, $bodyParam = [], $queryParam = []): ResponseInterface
     {
         $options = [
             $this->getOptions(),
@@ -80,7 +69,6 @@ class TrendyolClient implements ClientInterface
             $options['json'] = $bodyParam;
         }
 
-        $requestUrl = $this->prepareRequestUrl($endPoint);
         if (!empty($queryParam)) {
             $requestUrl .= '?' . http_build_query($queryParam);
         }
@@ -97,12 +85,12 @@ class TrendyolClient implements ClientInterface
      */
     private function getOptions(): array
     {
-        if ($this->getSupplierId() === null || $this->getAppSecret() === null || $this->getAppKey() === null) {
+        if ($this->getSellerId() === null || $this->getAppSecret() === null || $this->getAppKey() === null) {
             throw new HeaderNotFoundException();
         }
         return [
             'headers' => [
-                'User-Agent' => $this->getSupplierId() . '-' . $this->getIntegrator(),
+                'User-Agent' => $this->getSellerId() . '-' . $this->getIntegrator(),
             ],
             'auth_basic' => [
                 $this->getAppKey(),
@@ -112,33 +100,19 @@ class TrendyolClient implements ClientInterface
     }
 
     /**
-     * @param $endPoint
-     * @return array|string|string[]
-     */
-    private function prepareRequestUrl($endPoint)
-    {
-        $requestUrl = $this->url . $endPoint;
-        $requestUrl = str_replace('{sellerid}', $this->getSupplierId(), $requestUrl);
-        if ($this->env !== "prod") {
-            $requestUrl = str_replace('sapigw', 'stagesapigw', $this->url);
-        }
-        return $requestUrl;
-    }
-
-    /**
      * @return string
      */
-    public function getSupplierId(): string
+    public function getSellerId(): string
     {
-        return $this->supplierId;
+        return $this->sellerId;
     }
 
     /**
-     * @param string $supplierId
+     * @param string $sellerId
      */
-    public function setSupplierId(string $supplierId): void
+    public function setSellerId(string $sellerId): void
     {
-        $this->supplierId = $supplierId;
+        $this->sellerId = $sellerId;
     }
 
     /**
@@ -187,21 +161,5 @@ class TrendyolClient implements ClientInterface
     public function setIntegrator(string $integrator): void
     {
         $this->integrator = $integrator;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrl(): string
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param string $url
-     */
-    public function setUrl(string $url): void
-    {
-        $this->url = $url;
     }
 }

@@ -13,97 +13,99 @@ use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
  */
 class ClaimService extends AbstractService
 {
-	public const GET_SHIPMENT_PACKAGE_ENDPOINT = "/sapigw/suppliers/{sellerid}/claims";
-	public const CREATE_CLAIM_ENDPOINT = "/sapigw/suppliers/{supplierId}/claims/create";
-	public const APPROVE_CLAIM_LINE_ITEMS_ENDPOINT = "/sapigw/claims/{claimId}/items/approve";
-	public const CREATE_CLAIM_ISSUE_ENDPOINT = "/sapigw/claims/{claimId}/issue";
-	public const GET_CLAIM_ISSUE_REASONS_ENDPOINT = "/sapigw/claim-issue-reasons";
-	public const GET_CLAIM_AUDITS_ENDPOINT = "/integration/oms/core/sellers/{sellerid}/claims/items/{claimItemsId}/audit";
+    public const GET_SHIPMENT_PACKAGE = "get_shipment_package";
+    public const CREATE_CLAIM = "create_claim";
+    public const APPROVE_CLAIM_LINE_ITEMS = "approve_claim_line_items";
+    public const CREATE_CLAIM_ISSUE = "create_claim_issue";
+    public const GET_CLAIM_ISSUE_REASONS = "get_claim_ıisue_reasons";
+    public const GET_CLAIM_AUDITS = "get_claim_audits";
 
-	/**
-	 * @param int $claimItemsId
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function getClaimAudits(int $claimItemsId = 0): ResponseInterface
+    /**
+     * @param int $claimItemsId
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function getClaimAudits(int $claimItemsId = 0): ResponseInterface
     {
-		return $this->getClient()->request(
-			str_replace('{claimItemsId}', $claimItemsId, self::GET_CLAIM_AUDITS_ENDPOINT)
-		);
-	}
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::GET_CLAIM_AUDITS, ['[claimItemsid]' => $claimItemsId])
+        );
+    }
 
-	/**
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function getClaimsIssueReasons(): ResponseInterface
+    /**
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function getClaimsIssueReasons(): ResponseInterface
     {
-		return $this->getClient()->request(self::GET_CLAIM_ISSUE_REASONS_ENDPOINT);
-	}
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::GET_CLAIM_ISSUE_REASONS)
+        );
+    }
 
-	/**
-	 * @param int $claimId
-	 * @param array $queryParam
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function createClaimIssue(int $claimId = 0, array $queryParam = []): ResponseInterface
+    /**
+     * @param int $claimId
+     * @param array $queryParam
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function createClaimIssue(int $claimId = 0, array $queryParam = []): ResponseInterface
     {
-		return $this->getClient()->request(
-			str_replace('{claimId}', $claimId, self::CREATE_CLAIM_ISSUE_ENDPOINT),
-			Request::METHOD_POST,
-			[],
-			$queryParam
-		);
-	}
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::CREATE_CLAIM_ISSUE, ['[claimid]' => $claimId]),
+            Request::METHOD_POST,
+            [],
+            $queryParam
+        );
+    }
 
-	/**
-	 * @param int $claimId
-	 * @param array $bodyParam
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function approveClaimLineItems(int $claimId = 0, array $bodyParam = []): ResponseInterface
+    /**
+     * @param int $claimId
+     * @param array $bodyParam
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function approveClaimLineItems(int $claimId = 0, array $bodyParam = []): ResponseInterface
     {
-		return $this->getClient()->request(
-			str_replace('{claimId}', $claimId, self::APPROVE_CLAIM_LINE_ITEMS_ENDPOINT),
-			Request::METHOD_PUT,
-			$bodyParam
-		);
-	}
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::APPROVE_CLAIM_LINE_ITEMS, ['[claimId]' => $claimId]),
+            Request::METHOD_PUT,
+            $bodyParam
+        );
+    }
 
-	/**
-	 * @param array $bodyParam
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function createClaim(array $bodyParam = []): ResponseInterface
+    /**
+     * @param array $bodyParam
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function createClaim(array $bodyParam = []): ResponseInterface
     {
-		return $this->getClient()->request(
-			self::CREATE_CLAIM_ENDPOINT,
-			Request::METHOD_POST,
-			$bodyParam
-		);
-	}
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::CREATE_CLAIM),
+            Request::METHOD_POST,
+            $bodyParam
+        );
+    }
 
-	/**
-	 * @param array $queryParam
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function getShipmentPackage(array $queryParam = []): ResponseInterface
+    /**
+     * @param array $queryParam
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function getShipmentPackage(array $queryParam = []): ResponseInterface
     {
-		return $this->getClient()->request(
-			self::GET_SHIPMENT_PACKAGE_ENDPOINT,
-			Request::METHOD_GET,
-			[],
-			$queryParam
-		);
-	}
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::GET_SHIPMENT_PACKAGE),
+            Request::METHOD_GET,
+            [],
+            $queryParam
+        );
+    }
 }

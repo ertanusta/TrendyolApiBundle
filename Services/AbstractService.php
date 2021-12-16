@@ -3,6 +3,7 @@
 namespace Trendyol\ApiBundle\Services;
 
 use Trendyol\ApiBundle\Client\ClientInterface;
+use Trendyol\ApiBundle\Factories\UrlFactoryInterface;
 
 /**
  * AbstractService
@@ -10,21 +11,69 @@ use Trendyol\ApiBundle\Client\ClientInterface;
  */
 abstract class AbstractService
 {
-	/**
-	 * @var ClientInterface
-	 */
-	private $client;
+    /**
+     * @var ClientInterface|null
+     */
+    private $client;
 
-	public function __construct(ClientInterface $client = null)
-	{
-		$this->client = $client;
-	}
+    /**
+     * @var UrlFactoryInterface|null
+     */
+    private $factory;
 
-	/**
-	 * @return ClientInterface
-	 */
-	protected function getClient(): ?ClientInterface
-	{
-		return $this->client;
-	}
+    public function __construct(ClientInterface $client = null, UrlFactoryInterface $factory = null)
+    {
+        $this->client = $client;
+        $this->factory = $factory;
+        $this->factory->setSellerId($this->client->getSellerId());
+    }
+
+    /**
+     * @return ClientInterface
+     */
+    protected function getClient(): ?ClientInterface
+    {
+        return $this->client;
+    }
+
+    /**
+     * @return UrlFactoryInterface
+     */
+    protected function getUrlFactory(): ?UrlFactoryInterface
+    {
+        return $this->factory;
+    }
+
+    /**
+     * @param $sellerId
+     */
+    public function setSellerId($sellerId)
+    {
+        $this->getUrlFactory()->setSellerId($sellerId);
+        $this->getClient()->setSellerId($sellerId);
+    }
+
+    /**
+     * @param $appkey
+     */
+    public function setAppKey($appkey)
+    {
+        $this->getClient()->setAppKey($appkey);
+    }
+
+    /**
+     * @param $appSecret
+     */
+    public function setAppSecret($appSecret)
+    {
+        $this->getClient()->setAppSecret($appSecret);
+    }
+
+    /**
+     * @param $integrator
+     */
+    public function setIntegrator($integrator)
+    {
+        $this->getClient()->setIntegrator($integrator);
+    }
 }

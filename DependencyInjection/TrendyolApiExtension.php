@@ -8,6 +8,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Trendyol\ApiBundle\Client\TrendyolClient;
+use Trendyol\ApiBundle\Factories\TrendyolUrlFactory;
+use Symfony\Component\Yaml\Yaml;
+
 
 class TrendyolApiExtension extends Extension
 {
@@ -29,6 +32,10 @@ class TrendyolApiExtension extends Extension
         $definition->addArgument($config['app_key'] ?? '');
         $definition->addArgument($config['app_secret'] ?? '');
         $definition->addArgument($config['integrator'] ?? '');
-        $definition->addArgument($config['url']);
+
+        $environment = $container->getParameter("kernel.environment");
+        $definition = $container->getDefinition(TrendyolUrlFactory::class);
+        $urlFilePath = $config['url_file_path']?? __DIR__.'/../Resources/config/packages/'.$environment.'/trendyol_url.yaml';
+        $definition->addArgument(Yaml::parseFile($urlFilePath));
     }
 }

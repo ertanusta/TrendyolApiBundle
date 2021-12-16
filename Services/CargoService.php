@@ -12,30 +12,30 @@ use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
  */
 class CargoService extends AbstractService
 {
-	public const SHIPMENT_PROVIDERS_ENDPOINT = 'shipment-providers';
-	public const SUPPLIERS_ADDRESSES_ENDPOINT = 'suppliers/{sellerid}/addresses';
+    public const SHIPMENT_PROVIDERS = 'shipment_providers';
+    public const SUPPLIERS_ADDRESSES = 'suppliers_addresses';
 
-	/**
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function getShipmentProviders(): ResponseInterface
-	{
-		return $this->getClient()->request(
-			self::SHIPMENT_PROVIDERS_ENDPOINT
-		);
-	}
+    /**
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function getShipmentProviders(): ResponseInterface
+    {
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::SHIPMENT_PROVIDERS)
+        );
+    }
 
-	/**
-	 * @return ResponseInterface
-	 * @throws TransportExceptionInterface
-	 * @throws HeaderNotFoundException
-	 */
-	public function getSuppliersAddresses(): ResponseInterface
-	{
-		return $this->getClient()->request(
-			self::SUPPLIERS_ADDRESSES_ENDPOINT
-		);
-	}
+    /**
+     * @return ResponseInterface
+     * @throws TransportExceptionInterface
+     * @throws HeaderNotFoundException
+     */
+    public function getSuppliersAddresses(): ResponseInterface
+    {
+        return $this->getClient()->request(
+            $this->getUrlFactory()->createUrl(self::SUPPLIERS_ADDRESSES)
+        );
+    }
 }

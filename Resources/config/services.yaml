@@ -4,6 +4,11 @@ services:
 
   Trendyol\ApiBundle\Client\ClientInterface: '@Trendyol\ApiBundle\Client\TrendyolClient'
 
+  Trendyol\ApiBundle\Factories\TrendyolUrlFactory:
+    public: true
+
+  Trendyol\ApiBundle\Factories\UrlFactoryInterface: '@Trendyol\ApiBundle\Factories\TrendyolUrlFactory'
+
   Trendyol\ApiBundle\Services\:
     resource: '../../Services/*'
     autowire: true
