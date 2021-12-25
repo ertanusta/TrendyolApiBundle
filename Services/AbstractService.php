@@ -25,7 +25,9 @@ abstract class AbstractService
     {
         $this->client = $client;
         $this->factory = $factory;
-        $this->factory->setSellerId($this->client->getSellerId());
+        if ($factory instanceof UrlFactoryInterface && $client instanceof ClientInterface){
+            $this->factory->setSellerId($this->client->getSellerId());
+        }
     }
 
     /**

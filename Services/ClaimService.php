@@ -55,7 +55,7 @@ class ClaimService extends AbstractService
     public function createClaimIssue(int $claimId = 0, array $queryParam = []): ResponseInterface
     {
         return $this->getClient()->request(
-            $this->getUrlFactory()->createUrl(self::CREATE_CLAIM_ISSUE, ['[claimid]' => $claimId]),
+            $this->getUrlFactory()->createUrl(self::CREATE_CLAIM_ISSUE, ['[claimId]' => $claimId]),
             Request::METHOD_POST,
             [],
             $queryParam

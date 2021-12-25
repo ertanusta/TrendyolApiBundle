@@ -1,13 +1,10 @@
 services:
-  Trendyol\ApiBundle\Client\TrendyolClient:
-    public: true
 
-  Trendyol\ApiBundle\Client\ClientInterface: '@Trendyol\ApiBundle\Client\TrendyolClient'
+  Trendyol\ApiBundle\Client\ClientInterface:
+    class: '@Trendyol\ApiBundle\Client\TrendyolClient'
 
-  Trendyol\ApiBundle\Factories\TrendyolUrlFactory:
-    public: true
-
-  Trendyol\ApiBundle\Factories\UrlFactoryInterface: '@Trendyol\ApiBundle\Factories\TrendyolUrlFactory'
+  Trendyol\ApiBundle\Factories\UrlFactoryInterface:
+    class: '@Trendyol\ApiBundle\Factories\TrendyolUrlFactory'
 
   Trendyol\ApiBundle\Services\:
     resource: '../../Services/*'

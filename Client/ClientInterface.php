@@ -11,9 +11,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 interface ClientInterface
 {
-    public function request($endPoint, $methodType = Request::METHOD_GET, $bodyParam = [], $queryParam = []): ResponseInterface;
+    public function request($requestUrl, $methodType = Request::METHOD_GET, $bodyParam = [], $queryParam = []): ResponseInterface;
 
-    public function getSellerId();
+    public function getSellerId():string;
 
     public function setSellerId(string $sellerId);
 
