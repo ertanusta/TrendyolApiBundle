@@ -3,9 +3,7 @@
 namespace Trendyol\ApiBundle\Services;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 
 /**
  * ClaimService
@@ -23,8 +21,6 @@ class ClaimService extends AbstractService
     /**
      * @param int $claimItemsId
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function getClaimAudits(int $claimItemsId = 0): ResponseInterface
     {
@@ -35,8 +31,6 @@ class ClaimService extends AbstractService
 
     /**
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function getClaimsIssueReasons(): ResponseInterface
     {
@@ -49,8 +43,6 @@ class ClaimService extends AbstractService
      * @param int $claimId
      * @param array $queryParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function createClaimIssue(int $claimId = 0, array $queryParam = []): ResponseInterface
     {
@@ -66,8 +58,6 @@ class ClaimService extends AbstractService
      * @param int $claimId
      * @param array $bodyParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function approveClaimLineItems(int $claimId = 0, array $bodyParam = []): ResponseInterface
     {
@@ -81,8 +71,6 @@ class ClaimService extends AbstractService
     /**
      * @param array $bodyParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function createClaim(array $bodyParam = []): ResponseInterface
     {
@@ -96,8 +84,6 @@ class ClaimService extends AbstractService
     /**
      * @param array $queryParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function getShipmentPackage(array $queryParam = []): ResponseInterface
     {

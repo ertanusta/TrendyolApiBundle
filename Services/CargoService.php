@@ -2,9 +2,7 @@
 
 namespace Trendyol\ApiBundle\Services;
 
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 
 /**
  * CargoService
@@ -17,8 +15,6 @@ class CargoService extends AbstractService
 
     /**
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function getShipmentProviders(): ResponseInterface
     {
@@ -29,8 +25,6 @@ class CargoService extends AbstractService
 
     /**
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function getSuppliersAddresses(): ResponseInterface
     {

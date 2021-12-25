@@ -21,11 +21,15 @@ abstract class AbstractService
      */
     private $factory;
 
+    /**
+     * @param ClientInterface|null $client
+     * @param UrlFactoryInterface|null $factory
+     */
     public function __construct(ClientInterface $client = null, UrlFactoryInterface $factory = null)
     {
         $this->client = $client;
         $this->factory = $factory;
-        if ($factory instanceof UrlFactoryInterface && $client instanceof ClientInterface){
+        if ($factory instanceof UrlFactoryInterface && $client instanceof ClientInterface) {
             $this->factory->setSellerId($this->client->getSellerId());
         }
     }
@@ -49,7 +53,7 @@ abstract class AbstractService
     /**
      * @param $sellerId
      */
-    public function setSellerId($sellerId)
+    public function setSellerId($sellerId): void
     {
         $this->getUrlFactory()->setSellerId($sellerId);
         $this->getClient()->setSellerId($sellerId);
@@ -58,7 +62,7 @@ abstract class AbstractService
     /**
      * @param $appkey
      */
-    public function setAppKey($appkey)
+    public function setAppKey($appkey): void
     {
         $this->getClient()->setAppKey($appkey);
     }
@@ -66,7 +70,7 @@ abstract class AbstractService
     /**
      * @param $appSecret
      */
-    public function setAppSecret($appSecret)
+    public function setAppSecret($appSecret): void
     {
         $this->getClient()->setAppSecret($appSecret);
     }
@@ -74,7 +78,7 @@ abstract class AbstractService
     /**
      * @param $integrator
      */
-    public function setIntegrator($integrator)
+    public function setIntegrator($integrator): void
     {
         $this->getClient()->setIntegrator($integrator);
     }

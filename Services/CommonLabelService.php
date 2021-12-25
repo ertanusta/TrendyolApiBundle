@@ -3,9 +3,7 @@
 namespace Trendyol\ApiBundle\Services;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 
 /**
  * CommonLabelService
@@ -22,8 +20,6 @@ class CommonLabelService extends AbstractService
      * @param array $bodyParam
      * @param array|string[] $queryParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function createCommonLabel(string $cargoTrackingNumber = "", array $bodyParam = [], array $queryParam = ['format' => 'ZPL']): ResponseInterface
     {
@@ -38,8 +34,6 @@ class CommonLabelService extends AbstractService
     /**
      * @param string $cargoTrackingNumber
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function getCommonLabel(string $cargoTrackingNumber = ""): ResponseInterface
     {

@@ -12,7 +12,7 @@ Installation
 Require the `ertanusta/trendyol-api-bundle` with composer [Composer](http://getcomposer.org/).
 
 ```bash
-$ composer req ertanusta/trendyol-api-bundle
+$ composer require ertanusta/trendyol-api-bundle
 ```
 
 ### Step 2: Enable the bundle
@@ -43,7 +43,7 @@ trendyol_api:
   supplier_id: "supplier_id"
   app_key: "app_key"
   app_secret: "app_secret"
-  integrator: "123456"
+  integrator: "self"
 ```
 > At the same time, you can change the parameters according to the environment situation by keeping them under config/packages/dev/ or config/packages/prod directories.
 
@@ -56,7 +56,7 @@ After installing the package and entering the necessary configurations. You can 
     /**
      * @Route("/", name="index")
      */
-    public function index(CargoService $service)
+    public function method(CargoService $service)
     {
         $result = $service->getSuppliersAddresses();
     }
@@ -88,6 +88,10 @@ Extensions
 
 trendyol_url:
   shipment_providers: "https://api.trendyol.com/sapigw/shipment-providers"
+  .
+  . 
+  .
+  .
 ```
 
 It is enough to write the path information of the yaml file containing the api addresses you created.

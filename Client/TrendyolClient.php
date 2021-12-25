@@ -6,7 +6,6 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 
 /**
  * Client
@@ -32,16 +31,14 @@ class TrendyolClient implements ClientInterface
     /**
      * @var string
      */
-    private $integrator = "SelfIntegration";
+    private $integrator;
 
 
     /**
-     * @param $supplierId
+     * @param $sellerId
      * @param $appKey
      * @param $appSecret
      * @param $integrator
-     * @param $url
-     * @param $env
      */
     public function __construct($sellerId, $appKey, $appSecret, $integrator)
     {
@@ -58,13 +55,10 @@ class TrendyolClient implements ClientInterface
      * @param array $queryParam
      * @return ResponseInterface
      * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function request($requestUrl, $methodType = Request::METHOD_GET, $bodyParam = [], $queryParam = []): ResponseInterface
     {
-        $options = [
-            $this->getOptions(),
-        ];
+        $options =  $this->getOptions();
         if (!empty($bodyParam)) {
             $options['json'] = $bodyParam;
         }
@@ -81,13 +75,9 @@ class TrendyolClient implements ClientInterface
 
     /**
      * @return array
-     * @throws HeaderNotFoundException
      */
     private function getOptions(): array
     {
-        if ($this->getSellerId() === null || $this->getAppSecret() === null || $this->getAppKey() === null) {
-            throw new HeaderNotFoundException();
-        }
         return [
             'headers' => [
                 'User-Agent' => $this->getSellerId() . '-' . $this->getIntegrator(),

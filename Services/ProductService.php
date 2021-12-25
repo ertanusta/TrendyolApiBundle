@@ -3,9 +3,7 @@
 namespace Trendyol\ApiBundle\Services;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 
 /**
  * ProductService
@@ -21,8 +19,6 @@ class ProductService extends AbstractService
     /**
      * @param array $productList
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function createProduct(array $productList = []): ResponseInterface
     {
@@ -37,8 +33,6 @@ class ProductService extends AbstractService
     /**
      * @param array $productList
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function updateProduct(array $productList = []): ResponseInterface
     {
@@ -52,8 +46,6 @@ class ProductService extends AbstractService
     /**
      * @param array $productList
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function updatePriceStock(array $productList = []): ResponseInterface
     {
@@ -67,8 +59,6 @@ class ProductService extends AbstractService
     /**
      * @param array $queryParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function filterProducts(array $queryParam = []): ResponseInterface
     {

@@ -3,9 +3,7 @@
 namespace Trendyol\ApiBundle\Services;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 
 /**
  * OrderService
@@ -27,8 +25,6 @@ class OrderService extends AbstractService
     /**
      * @param array $queryParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function getShipmentPackages(array $queryParam = []): ResponseInterface
     {
@@ -43,8 +39,6 @@ class OrderService extends AbstractService
     /**
      * @param int $shipmentPackageId
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function updateTrackingNumber(int $shipmentPackageId): ResponseInterface
     {
@@ -58,8 +52,6 @@ class OrderService extends AbstractService
      * @param int $id
      * @param array $bodyParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function updatePackage(int $id, array $bodyParam = []): ResponseInterface
     {
@@ -74,8 +66,6 @@ class OrderService extends AbstractService
      * @param int $shipmentPackageId
      * @param array $bodyParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function updatePackageUnSupplied(int $shipmentPackageId, array $bodyParam = []): ResponseInterface
     {
@@ -89,8 +79,6 @@ class OrderService extends AbstractService
     /**
      * @param array $bodyParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function sendInvoiceLink(array $bodyParam = []): ResponseInterface
     {
@@ -105,8 +93,6 @@ class OrderService extends AbstractService
      * @param int $shipmentPackageId
      * @param array $bodyParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function splitMultiPackageByQuantity(int $shipmentPackageId, array $bodyParam = []): ResponseInterface
     {
@@ -121,8 +107,6 @@ class OrderService extends AbstractService
      * @param int $shipmentPackageId
      * @param array $bodyParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function splitShipmentPackage(int $shipmentPackageId, array $bodyParam = []): ResponseInterface
     {
@@ -137,8 +121,6 @@ class OrderService extends AbstractService
      * @param int $shipmentPackageId
      * @param array $bodyParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function multiSplitShipmentPackage(int $shipmentPackageId, array $bodyParam = []): ResponseInterface
     {
@@ -153,8 +135,6 @@ class OrderService extends AbstractService
      * @param int $shipmentPackageId
      * @param array $bodyParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function splitShipmentPackageByQuantity(int $shipmentPackageId, array $bodyParam = []): ResponseInterface
     {
@@ -169,8 +149,6 @@ class OrderService extends AbstractService
      * @param int $shipmentPackageId
      * @param array $bodyParam
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function updateBoxInfo(int $shipmentPackageId, array $bodyParam = []): ResponseInterface
     {

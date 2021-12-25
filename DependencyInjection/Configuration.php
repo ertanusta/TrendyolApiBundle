@@ -16,7 +16,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('supplier_id')->defaultValue('')->end()
                 ->scalarNode('app_key')->defaultValue('')->end()
                 ->scalarNode('app_secret')->defaultValue('')->end()
-                ->scalarNode('integrator')->defaultValue('')->end()
+                ->scalarNode('integrator')->defaultValue('SelfIntegration')->end()
                 ->scalarNode('url_file_path')->defaultValue(null)->end()
             ->end()
             ->end();

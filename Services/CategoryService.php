@@ -3,9 +3,7 @@
 namespace Trendyol\ApiBundle\Services;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Trendyol\ApiBundle\Exceptions\HeaderNotFoundException;
 
 /**
  * CategoryService
@@ -21,8 +19,6 @@ class CategoryService extends AbstractService
 
     /**
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function getCategoryTree(): ResponseInterface
     {
@@ -34,8 +30,6 @@ class CategoryService extends AbstractService
     /**
      * @param string $categoryId
      * @return ResponseInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
-     * @throws \Trendyol\ApiBundle\Exceptions\HeaderNotFoundException
      */
     public function getCategoryAttributes(string $categoryId = ""): ResponseInterface
     {
@@ -46,8 +40,6 @@ class CategoryService extends AbstractService
 
     /**
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function getBrands(): ResponseInterface
     {
@@ -59,8 +51,6 @@ class CategoryService extends AbstractService
     /**
      * @param string $brandName
      * @return ResponseInterface
-     * @throws TransportExceptionInterface
-     * @throws HeaderNotFoundException
      */
     public function getBrandsName(string $brandName = ""): ResponseInterface
     {
