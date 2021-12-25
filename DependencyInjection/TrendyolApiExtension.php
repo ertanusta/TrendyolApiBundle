@@ -7,9 +7,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Trendyol\ApiBundle\Client\TrendyolClient;
-use Trendyol\ApiBundle\Factories\TrendyolUrlFactory;
+use Trendyol\ApiBundle\Client\ClientInterface;
 use Symfony\Component\Yaml\Yaml;
+use Trendyol\ApiBundle\Factories\UrlFactoryInterface;
 
 
 class TrendyolApiExtension extends Extension
@@ -27,14 +27,14 @@ class TrendyolApiExtension extends Extension
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $definition = $container->getDefinition(TrendyolClient::class);
+        $definition = $container->getDefinition(ClientInterface::class);
         $definition->addArgument($config['supplier_id'] ?? '');
         $definition->addArgument($config['app_key'] ?? '');
         $definition->addArgument($config['app_secret'] ?? '');
         $definition->addArgument($config['integrator'] ?? '');
 
         $environment = $container->getParameter("kernel.environment");
-        $definition = $container->getDefinition(TrendyolUrlFactory::class);
+        $definition = $container->getDefinition(UrlFactoryInterface::class);
         $urlFilePath = $config['url_file_path']?? __DIR__.'/../Resources/config/packages/'.$environment.'/trendyol_url.yaml';
         $definition->addArgument(Yaml::parseFile($urlFilePath));
     }
