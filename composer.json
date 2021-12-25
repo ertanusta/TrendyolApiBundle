@@ -6,16 +6,12 @@
   "keywords": ["Symfony", "bundle", "trendyol", "api"],
   "require": {
     "php": ">=7.1",
-    "symfony/event-dispatcher": "^4.4|^5.3|^6.0",
-    "symfony/http-client": "^4.4|^5.3",
-    "symfony/validator": "^4.4|^5.3",
-    "symfony/http-foundation": ">=v3.4.47",
-    "symfony/framework-bundle": "^4.4|^5.3",
-    "symfony/serializer": "^5.3",
-    "symfony/yaml": "5.3.*"
+    "symfony/http-client": "^4.4|^5.2",
+    "symfony/http-foundation": "^4.4|^5.2",
+    "symfony/framework-bundle": "^4.4|^5.2",
+    "symfony/yaml": "^4.4|^5.2"
   },
   "require-dev": {
-    "symfony/serializer":           "^4.3|^5.3",
     "phpunit/phpunit":              "^7.5|^8.5",
     "phpstan/phpstan":              "^0.12.11",
     "phpstan/phpstan-phpunit":      "^0.12.6"
