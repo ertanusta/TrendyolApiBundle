@@ -1,10 +1,10 @@
 services:
 
   Trendyol\ApiBundle\Client\ClientInterface:
-    class: '@Trendyol\ApiBundle\Client\TrendyolClient'
+    class: 'Trendyol\ApiBundle\Client\TrendyolClient'
 
   Trendyol\ApiBundle\Factories\UrlFactoryInterface:
-    class: '@Trendyol\ApiBundle\Factories\TrendyolUrlFactory'
+    class: 'Trendyol\ApiBundle\Factories\TrendyolUrlFactory'
 
   Trendyol\ApiBundle\Services\:
     resource: '../../Services/*'
